@@ -1,0 +1,4 @@
+quarkus:
+  rest-client:
+    "com.example.PersonService":
+      url: http://localhost:8080

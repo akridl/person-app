@@ -1,0 +1,56 @@
+services:
+  person-db:
+    container_name: person-db
+    image: postgres:16.9
+    env_file:
+      - .env
+    networks:
+      - person-network
+    ports:
+      - '5433:5432'
+    volumes:
+      - db-volume:/var/lib/postgresql
+
+  person-server:
+    container_name: person-server
+    build:
+      context: .
+      dockerfile: Containerfile
+      args:
+        - SERVICE=server
+        - SERVICE_JAR=person-server-runner.jar
+    env_file:
+      - .env
+    networks:
+      - person-network
+    ports:
+      - '8080:8080'
+    depends_on:
+      - person-db
+    restart: always
+
+  person-client:
+    container_name: person-client
+    build:
+      context: .
+      dockerfile: Containerfile
+      args:
+        - SERVICE=client
+        - SERVICE_JAR=person-client-runner.jar
+    env_file:
+      - .env
+    networks:
+      - person-network
+    ports:
+      - '8081:8080'
+    depends_on:
+      - person-server
+    restart: always
+
+networks:
+  person-network:
+    name: person-network
+
+volumes:
+  db-volume:
+    name: db-volume

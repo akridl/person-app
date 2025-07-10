@@ -1,0 +1,14 @@
+quarkus:
+  package:
+    jar:
+      type: uber-jar
+  devservices:
+    enabled: false
+  datasource:
+    db-kind: postgresql
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+    jdbc:
+      url: ${DB_URL}
+  hibernate-orm:
+    physical-naming-strategy: 'org.hibernate.boot.model.naming.PhysicalNamingStrategySnakeCaseImpl'
