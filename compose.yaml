@@ -1,16 +1,4 @@
 services:
-  person-db:
-    container_name: person-db
-    image: postgres:16.9
-    env_file:
-      - .env
-    networks:
-      - person-network
-    ports:
-      - '5433:5432'
-    volumes:
-      - db-volume:/var/lib/postgresql
-
   person-server:
     container_name: person-server
     build:
@@ -25,8 +13,6 @@ services:
       - person-network
     ports:
       - '8080:8080'
-    depends_on:
-      - person-db
     restart: always
 
   person-client:
@@ -50,7 +36,3 @@ services:
 networks:
   person-network:
     name: person-network
-
-volumes:
-  db-volume:
-    name: db-volume

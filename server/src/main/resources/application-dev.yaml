@@ -1,18 +1,26 @@
 quarkus:
-  devservices:
-    enabled: true
+  # PostgreSQL
+  # devservices:
+  #   enabled: true
+  # datasource:
+  #   devservices:
+  #     enabled: true
+  #     image-name: postgres:16.9
+  #     username: postgres
+  #     password: postgres
+  #     db-name: db
+  #     port: 5432
+  #   username: postgres
+  #   password: postgres
+  #   jdbc:
+  #     url: jdbc:postgresql://localhost:5432/db
+
+  # H2
   datasource:
-    devservices:
-      enabled: true
-      image-name: postgres:16.9
-      username: postgres
-      password: postgres
-      db-name: db
-      port: 5432
-    username: postgres
-    password: postgres
+    username: h2
+    password: h2
     jdbc:
-      url: jdbc:postgresql://localhost:5432/db
+      url: jdbc:h2:mem:default
   hibernate-orm:
     schema-management:
       strategy: drop-and-create
