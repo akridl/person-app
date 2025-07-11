@@ -8,6 +8,7 @@ COPY pom.xml .
 COPY api/ api/
 COPY client/ client/
 COPY server/ server/
+COPY runtime/ runtime/
 
 RUN mvn clean install
 

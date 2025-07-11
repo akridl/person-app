@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>com.example</groupId>
-        <artifactId>person-app</artifactId>
+        <artifactId>person-parent</artifactId>
         <version>1.0.0-SNAPSHOT</version>
     </parent>
 
@@ -14,7 +14,6 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <version>1.18.38</version>
         </dependency>
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
