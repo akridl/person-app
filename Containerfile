@@ -23,6 +23,7 @@ ARG SERVICE
 ARG SERVICE_JAR
 
 COPY --chown=185 --from=builder "/build/${SERVICE}/target/${SERVICE_JAR}" app.jar
+COPY --chown=185 entrypoint.sh .
 
 USER 185
-ENTRYPOINT ["java", "-jar", "app.jar"]
+ENTRYPOINT ["./entrypoint.sh"]
