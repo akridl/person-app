@@ -1,0 +1,15 @@
+# oc expose deployment person-server --port=8080
+# Note: the deployment 'person-server' has to already exist at the cluster, to which we're connected
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: person-server
+  name: person-server
+spec:
+  ports:
+  - port: 8080
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    app: person-server

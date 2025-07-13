@@ -1,0 +1,15 @@
+# oc create cm person-server --from-file=config/application.yaml
+apiVersion: v1
+data:
+  application.yaml: |
+    quarkus:
+      log:
+        console:
+          json:
+            enabled: true
+        category:
+          "com.example":
+            level: DEBUG
+kind: ConfigMap
+metadata:
+  name: person-server

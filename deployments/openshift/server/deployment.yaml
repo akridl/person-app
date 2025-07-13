@@ -1,0 +1,53 @@
+# oc create deployment person-server --image=quay.io/rh-ee-akridl/person-server:1.3.0
+
+# oc set volumes deployment/person-server \
+#  --add \
+#  --type=configmap \
+#  --configmap-name=person-server \
+#  --mount-path=/mnt/configurations \
+#  --name=configs-volume
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: person-server
+  name: person-server
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: person-server
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        app: person-server
+    spec:
+      containers:
+      - image: quay.io/rh-ee-akridl/person-server:1.3.0
+        name: person-server
+        resources: {}
+        env:
+          - name: DB_USERNAME
+            valueFrom:
+              secretKeyRef:
+                name: person-server
+                key: database_username
+          - name: DB_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: person-server
+                key: database_password
+          - name: DB_URL
+            valueFrom:
+              secretKeyRef:
+                name: person-server
+                key: database_url
+        volumeMounts:
+          - mountPath: /mnt/configurations
+            name: configs-volume
+      volumes:
+        - name: configs-volume
+          configMap:
+            name: person-server
+            defaultMode: 420
