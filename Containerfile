@@ -17,7 +17,7 @@ RUN mvn clean install
 #
 FROM eclipse-temurin:21-jre-alpine
 WORKDIR /app
-RUN chmod 755 .
+RUN chmod 777 .
 EXPOSE 8080
 
 ARG SERVICE
