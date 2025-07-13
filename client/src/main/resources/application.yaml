@@ -1,4 +1,8 @@
 quarkus:
+  log:
+    console:
+      json:
+        enabled: false
   package:
     jar:
       type: uber-jar
