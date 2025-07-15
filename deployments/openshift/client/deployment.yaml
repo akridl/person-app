@@ -1,0 +1,58 @@
+---
+# oc create deployment person-client --image=quay.io/rh-ee-akridl/person-client:1.3.1
+
+# env variable set manually from configmap
+# volumes & volumeMounts set manually
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: person-client
+  name: person-client
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: person-client
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        app: person-client
+    spec:
+      containers:
+      - image: quay.io/rh-ee-akridl/person-client:1.3.1
+        name: person-client
+        env:
+          - name: PERSON_SERVER_URL
+            valueFrom:
+              configMapKeyRef:
+                name: person-client
+                key: person-server-url
+        volumeMounts:
+          - name: configs-volume
+            mountPath: /mnt/configurations
+            readOnly: true
+        resources: {}
+      volumes:
+        - name: configs-volume
+          configMap:
+            name: person-client
+            defaultMode: 400
+
+---
+# oc expose deployment person-client --port=8080
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: person-client
+  name: person-client
+spec:
+  ports:
+  - port: 8080
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    app: person-client
+

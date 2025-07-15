@@ -1,0 +1,8 @@
+quarkus:
+  log:
+    console:
+      json:
+        enabled: true
+    category:
+      "com.example":
+        level: DEBUG

@@ -1,0 +1,18 @@
+# oc create cm person-client \
+#  --from-file=config/application.yaml \
+#  --from-literal person-server-url=http://person-server:8080
+apiVersion: v1
+data:
+  application.yaml: |
+    quarkus:
+      log:
+        console:
+          json:
+            enabled: true
+        category:
+          "com.example":
+            level: DEBUG
+  person-server-url: 'http://person-server:8080'
+kind: ConfigMap
+metadata:
+  name: person-client
